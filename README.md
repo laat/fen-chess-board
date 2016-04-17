@@ -116,4 +116,4 @@ scolarsMate === fenBoard.fen
 
 ## License
 
-[MIT License](http://opensource.org/licenses/MIT)
+MIT © [Sigurd Fosseng](https://github.com/laat)
