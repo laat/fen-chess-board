@@ -1,9 +1,9 @@
-import { emptyBoard, getFileRank } from './chess-utils'
+import { emptyBoard, getFileRank } from './chess-utils';
 
 export default class FENBoard {
-  constructor (fen) {
-    this.board = emptyBoard()
-    this.fen = fen
+  constructor(fen) {
+    this.board = emptyBoard();
+    this.fen = fen;
   }
 
   /**
@@ -12,9 +12,9 @@ export default class FENBoard {
    * @param {string} square - The square. Eg: "a2"
    * @return {string} piece - the ascii representation of a piece. Eg: "K"
    */
-  piece (square) {
-    const [file, rank] = getFileRank(square)
-    return this._getPiece(file, rank)
+  piece(square) {
+    const [file, rank] = getFileRank(square);
+    return this._getPiece(file, rank);
   }
 
   /**
@@ -23,9 +23,9 @@ export default class FENBoard {
    * @param {string} square - The square. Eg: "a2"
    * @param {string} piece - the ascii representation of a piece. Eg: "K"
    */
-  put (square, piece) {
-    const [file, rank] = getFileRank(square)
-    this._setPiece(file, rank, piece)
+  put(square, piece) {
+    const [file, rank] = getFileRank(square);
+    this._setPiece(file, rank, piece);
   }
 
   /**
@@ -33,8 +33,8 @@ export default class FENBoard {
    *
    * @param {string} square - The square. Eg: "a2"
    */
-  clear (square) {
-    this.put(square, '')
+  clear(square) {
+    this.put(square, '');
   }
 
   /**
@@ -43,13 +43,13 @@ export default class FENBoard {
    * @param {string} from - The square to move from. Eg: "a2"
    * @param {string} to - The square to move to. Eg: "a3"
    */
-  move (from, to) {
-    const piece = this.piece(from)
+  move(from, to) {
+    const piece = this.piece(from);
     if (!piece) {
-      throw new Error('Move Error: the from square was empty')
+      throw new Error('Move Error: the from square was empty');
     }
-    this.put(to, piece)
-    this.clear(from)
+    this.put(to, piece);
+    this.clear(from);
   }
 
   /**
@@ -57,78 +57,78 @@ export default class FENBoard {
    *
    * @param {string} fen - a position string as FEN
    */
-  set fen (fen) {
-    if (!fen) return
-    if (fen === 'start') fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'
+  set fen(fen) {
+    if (!fen) return;
+    if (fen === 'start') fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'; // eslint-disable-line
 
-    let rank = 0
-    let file = 0
-    let fenIndex = 0
+    let rank = 0;
+    let file = 0;
+    let fenIndex = 0;
 
-    let fenChar
-    let count
+    let fenChar;
+    let count;
 
     while (fenIndex < fen.length) {
-      fenChar = fen[fenIndex]
+      fenChar = fen[fenIndex];
 
       if (fenChar === ' ') {
-        break // ignore the rest
+        break; // ignore the rest
       }
       if (fenChar === '/') {
-        rank++
-        file = 0
-        fenIndex++
-        continue
+        rank++;
+        file = 0;
+        fenIndex++;
+        continue;
       }
 
       if (isNaN(parseInt(fenChar, 10))) {
-        this._setPiece(file, rank, fenChar)
-        file++
+        this._setPiece(file, rank, fenChar);
+        file++;
       } else {
-        count = parseInt(fenChar, 10)
+        count = parseInt(fenChar, 10);
         for (let i = 0; i < count; i++) {
-          this._setPiece(file, rank, '')
-          file++
+          this._setPiece(file, rank, '');
+          file++;
         }
       }
 
-      fenIndex++
+      fenIndex++;
     }
   }
 
   /**
    * Get the current position as FEN.
    */
-  get fen () {
-    let fen = []
+  get fen() {
+    const fen = [];
     for (let i = 0; i < 8; i++) {
-      let empty = 0
+      let empty = 0;
       for (let j = 0; j < 8; j++) {
-        const piece = this._getPiece(j, i)
+        const piece = this._getPiece(j, i);
         if (piece) {
           if (empty > 0) {
-            fen.push(empty)
-            empty = 0
+            fen.push(empty);
+            empty = 0;
           }
-          fen.push(piece)
+          fen.push(piece);
         } else {
-          empty++
+          empty++;
         }
       }
       if (empty > 0) {
-        fen.push(empty)
+        fen.push(empty);
       }
-      fen.push('/')
+      fen.push('/');
     }
-    fen.pop()
-    return fen.join('')
+    fen.pop();
+    return fen.join('');
   }
 
-  _setPiece (file, rank, fenChar) {
-    this.board[file][rank] = fenChar
+  _setPiece(file, rank, fenChar) {
+    this.board[file][rank] = fenChar;
   }
 
-  _getPiece (file, rank) {
-    return this.board[file][rank]
+  _getPiece(file, rank) {
+    return this.board[file][rank];
   }
 }
