@@ -1,16 +1,10 @@
-# fen-chess-board
-
-[![travis][travis-image]][travis-url]
-[![npm][npm-image]][npm-url]
-
+# fen-chess-board [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url]
 [travis-image]: https://img.shields.io/travis/laat/fen-chess-board.svg?style=flat
 [travis-url]: https://travis-ci.org/laat/fen-chess-board
 [npm-image]: https://img.shields.io/npm/v/fen-chess-board.svg?style=flat
 [npm-url]: https://npmjs.org/package/fen-chess-board
 
-Module for keeping track of chess boards in [Forsyth–Edwards Notation](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation).
-
-> Maintained by [Sigurd Fosseng](https://github.com/laat).
+> Module for keeping track of chess boards in [Forsyth–Edwards Notation](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation).
 
 ## Usage
 
