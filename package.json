@@ -33,11 +33,6 @@
     "fen",
     "Forsyth-Edwards Notation"
   ],
-  "babel": {
-    "presets": [
-      "es2015"
-    ]
-  },
   "files": [
     "lib"
   ]
