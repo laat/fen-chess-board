@@ -125,10 +125,10 @@ export default class FENBoard {
   }
 
   _setPiece(file, rank, fenChar) {
-    this.board[file][rank] = fenChar;
+    this.board[rank][file] = fenChar;
   }
 
   _getPiece(file, rank) {
-    return this.board[file][rank];
+    return this.board[rank][file];
   }
 }
