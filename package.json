@@ -1,6 +1,6 @@
 {
   "name": "fen-chess-board",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "description": "Module for keeping track of chess boards in Forsyth–Edwards Notation.",
   "main": "lib/fen-chess-board.js",
   "scripts": {
