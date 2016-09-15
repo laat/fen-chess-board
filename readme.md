@@ -11,7 +11,7 @@
 ```javascript
 import FENBoard from 'fen-chess-board'
 
-let fenBoard = new FENBoard('start');
+let fenBoard = new FENBoard('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
 fenBoard.board
 /*=>
 [ [ 'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r' ],
@@ -97,6 +97,23 @@ fenBoard.board
   [ '' , '' , '' , '' , '' , '' , '' , ''  ],
   [ 'P', 'P', 'P', 'P', '' , 'P', 'P', 'P' ],
   [ 'R', 'N', 'B', '' , 'K', '', 'N', 'R' ] ]
+*/
+```
+
+### simple start position
+
+```javascript
+fenBoard = new FENBoard('start');
+fenBoard.board
+/*=>
+[ [ 'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r' ],
+  [ 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p' ],
+  [ '' , '' , '' , '' , '' , '' , '' , ''  ],
+  [ '' , '' , '' , '' , '' , '' , '' , ''  ],
+  [ '' , '' , '' , '' , '' , '' , '' , ''  ],
+  [ '' , '' , '' , '' , '' , '' , '' , ''  ],
+  [ 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P' ],
+  [ 'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R' ] ]
 */
 ```
 
