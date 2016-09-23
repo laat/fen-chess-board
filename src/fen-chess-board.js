@@ -58,6 +58,9 @@ export default class FENBoard {
    * @param {string} fen - a position string as FEN
    */
   set fen(fen) {
+    // reset board
+    this.board.forEach((r) => { r.length = 0; }); // eslint-disable-line no-param-reassign
+
     if (!fen) return;
     if (fen === 'start') fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'; // eslint-disable-line
 
