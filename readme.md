@@ -1,4 +1,5 @@
 # fen-chess-board [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url]
+
 [travis-image]: https://img.shields.io/travis/laat/fen-chess-board.svg?style=flat
 [travis-url]: https://travis-ci.org/laat/fen-chess-board
 [npm-image]: https://img.shields.io/npm/v/fen-chess-board.svg?style=flat
@@ -8,11 +9,11 @@
 
 ## Usage
 
-```javascript
-import FENBoard from 'fen-chess-board'
+```javascript test
+import FENBoard from "fen-chess-board";
 
-let fenBoard = new FENBoard('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
-fenBoard.board
+let fenBoard = new FENBoard("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+fenBoard.board;
 /*=>
 [ [ 'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r' ],
   [ 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p' ],
@@ -26,12 +27,14 @@ fenBoard.board
 ```
 
 ### put()
-Put the white queen on the a4 square
-```javascript
-fenBoard = new FENBoard()
-fenBoard.put("a4", "Q")
 
-fenBoard.board
+Put the white queen on the a4 square
+
+```javascript test
+fenBoard = new FENBoard();
+fenBoard.put("a4", "Q");
+
+fenBoard.board;
 /*=>
 [ [],
   [],
@@ -45,11 +48,12 @@ fenBoard.board
 ```
 
 set a4 square empty
-```javascript
-fenBoard = new FENBoard('start')
+
+```javascript test
+fenBoard = new FENBoard("start");
 fenBoard.put("a1", "");
 
-fenBoard.board
+fenBoard.board;
 /*=>
 [ [ 'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r' ],
   [ 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p' ],
@@ -63,12 +67,14 @@ fenBoard.board
 ```
 
 ### move()
-move a piece from a4 to a1
-```javascript
-fenBoard = new FENBoard('start')
-fenBoard.move("d2", "d4")
 
-fenBoard.board
+move a piece from a4 to a1
+
+```javascript test
+fenBoard = new FENBoard("start");
+fenBoard.move("d2", "d4");
+
+fenBoard.board;
 /*=>
 [ [ 'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r' ],
   [ 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p' ],
@@ -82,12 +88,13 @@ fenBoard.board
 ```
 
 ### setting board position
-```javascript
-const scolarsMate = 'r1bqk1nr/pppp1Qpp/2n5/2b1p3/2B1P3/8/PPPP1PPP/RNB1K1NR'
-fenBoard = new FENBoard();
-fenBoard.fen = scolarsMate
 
-fenBoard.board
+```javascript test
+const scolarsMate = "r1bqk1nr/pppp1Qpp/2n5/2b1p3/2B1P3/8/PPPP1PPP/RNB1K1NR";
+fenBoard = new FENBoard();
+fenBoard.fen = scolarsMate;
+
+fenBoard.board;
 /*=>
 [ [ 'r',  '', 'b', 'q', 'k', '' , 'n', 'r' ],
   [ 'p', 'p', 'p', 'p', '' , 'Q', 'p', 'p' ],
@@ -102,9 +109,9 @@ fenBoard.board
 
 ### simple start position
 
-```javascript
-fenBoard = new FENBoard('start');
-fenBoard.board
+```javascript test
+fenBoard = new FENBoard("start");
+fenBoard.board;
 /*=>
 [ [ 'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r' ],
   [ 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p' ],
@@ -118,10 +125,11 @@ fenBoard.board
 ```
 
 ### getting board position
-```javascript
+
+```javascript test
 fenBoard = new FENBoard();
-fenBoard.fen = scolarsMate
-scolarsMate === fenBoard.fen
+fenBoard.fen = scolarsMate;
+scolarsMate === fenBoard.fen;
 //=> true
 ```
 
