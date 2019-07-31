@@ -2257,9 +2257,9 @@ readdirp@^2.2.1:
     readable-stream "^2.0.2"
 
 readme-assert@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/readme-assert/-/readme-assert-6.0.0.tgz#ce5fd3f1c9585619f94edce19d8b6cdff1ca537a"
-  integrity sha512-wgMkE6lrC85kURs7zgLaONyBCUPnMntvunxHBVtB9JbBpOBGDmFCc2JEVcdLs4H19jiNSmEIxGhwWcP5FwumlQ==
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/readme-assert/-/readme-assert-6.0.3.tgz#c50d4aa8c4f9b0f45d6afc89429d6bd44af94553"
+  integrity sha512-cEQ5PUbSLR8uZZb7Kbr51iym8K89gMF4nCNMk4kf4CoVhZ+rUWfrf9Hqj9OtZ18jUw3kAHQR4iqUaL6RN4b4hA==
   dependencies:
     "@babel/core" "^7.0.0"
     "@babel/plugin-syntax-typescript" "^7.3.3"
