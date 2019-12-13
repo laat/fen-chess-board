@@ -9,7 +9,7 @@
 
 ## Usage
 
-```javascript test
+```ts test
 import FENBoard from "fen-chess-board";
 
 let fenBoard = new FENBoard("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
@@ -30,7 +30,7 @@ fenBoard.board;
 
 Put the white queen on the a4 square
 
-```javascript test
+```ts test
 fenBoard = new FENBoard();
 fenBoard.put("a4", "Q");
 
@@ -49,7 +49,7 @@ fenBoard.board;
 
 set a4 square empty
 
-```javascript test
+```ts test
 fenBoard = new FENBoard("start");
 fenBoard.put("a1", "");
 
@@ -70,7 +70,7 @@ fenBoard.board;
 
 move a piece from d2 to d4
 
-```javascript test
+```ts test
 fenBoard = new FENBoard("start");
 fenBoard.move("d2", "d4");
 
@@ -89,7 +89,7 @@ fenBoard.board;
 
 ### setting board position
 
-```javascript test
+```ts test
 const scolarsMate = "r1bqk1nr/pppp1Qpp/2n5/2b1p3/2B1P3/8/PPPP1PPP/RNB1K1NR";
 fenBoard = new FENBoard();
 fenBoard.fen = scolarsMate;
@@ -109,7 +109,7 @@ fenBoard.board;
 
 ### simple start position
 
-```javascript test
+```ts test
 fenBoard = new FENBoard("start");
 fenBoard.board;
 /*=>
@@ -126,7 +126,7 @@ fenBoard.board;
 
 ### getting board position
 
-```javascript test
+```ts test
 fenBoard = new FENBoard();
 fenBoard.fen = scolarsMate;
 scolarsMate === fenBoard.fen;

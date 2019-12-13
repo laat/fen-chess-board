@@ -1,18 +1,19 @@
-import { emptyBoard, getFileRank } from './chess-utils';
+import { emptyBoard, getFileRank } from "./chess-utils";
 
 export default class FENBoard {
-  constructor(fen) {
+  board: string[][];
+  constructor(fen?: string) {
     this.board = emptyBoard();
-    this.fen = fen;
+    this.fen = fen || "";
   }
 
   /**
    * Gets the piece at a square
    *
-   * @param {string} square - The square. Eg: "a2"
-   * @return {string} piece - the ascii representation of a piece. Eg: "K"
+   * @param square - The square. Eg: "a2"
+   * @return piece - the ascii representation of a piece. Eg: "K"
    */
-  piece(square) {
+  piece(square: string): string {
     const [file, rank] = getFileRank(square);
     return this._getPiece(file, rank);
   }
@@ -20,10 +21,10 @@ export default class FENBoard {
   /**
    * Places a piece in the given square.
    *
-   * @param {string} square - The square. Eg: "a2"
-   * @param {string} piece - the ascii representation of a piece. Eg: "K"
+   * @param square - The square. Eg: "a2"
+   * @param piece - the ascii representation of a piece. Eg: "K"
    */
-  put(square, piece) {
+  put(square: string, piece: string) {
     const [file, rank] = getFileRank(square);
     this._setPiece(file, rank, piece);
   }
@@ -31,22 +32,22 @@ export default class FENBoard {
   /**
    * Removes the piece at the given square.
    *
-   * @param {string} square - The square. Eg: "a2"
+   * @param square - The square. Eg: "a2"
    */
-  clear(square) {
-    this.put(square, '');
+  clear(square: string) {
+    this.put(square, "");
   }
 
   /**
    * Moves a piece.
    *
-   * @param {string} from - The square to move from. Eg: "a2"
-   * @param {string} to - The square to move to. Eg: "a3"
+   * @param from - The square to move from. Eg: "a2"
+   * @param to - The square to move to. Eg: "a3"
    */
-  move(from, to) {
+  move(from: string, to: string) {
     const piece = this.piece(from);
     if (!piece) {
-      throw new Error('Move Error: the from square was empty');
+      throw new Error("Move Error: the from square was empty");
     }
     this.put(to, piece);
     this.clear(from);
@@ -55,14 +56,16 @@ export default class FENBoard {
   /**
    * Set the current position.
    *
-   * @param {string} fen - a position string as FEN
+   * @param fen - a position string as FEN
    */
-  set fen(fen) {
+  set fen(fen: string) {
     // reset board
-    this.board.forEach((r) => { r.length = 0; }); // eslint-disable-line no-param-reassign
+    this.board.forEach(r => {
+      r.length = 0;
+    }); // eslint-disable-line no-param-reassign
 
     if (!fen) return;
-    if (fen === 'start') fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'; // eslint-disable-line
+    if (fen === "start") fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"; // eslint-disable-line
 
     let rank = 0;
     let file = 0;
@@ -74,10 +77,10 @@ export default class FENBoard {
     while (fenIndex < fen.length) {
       fenChar = fen[fenIndex];
 
-      if (fenChar === ' ') {
+      if (fenChar === " ") {
         break; // ignore the rest
       }
-      if (fenChar === '/') {
+      if (fenChar === "/") {
         rank++;
         file = 0;
         fenIndex++;
@@ -90,7 +93,7 @@ export default class FENBoard {
       } else {
         count = parseInt(fenChar, 10);
         for (let i = 0; i < count; i++) {
-          this._setPiece(file, rank, '');
+          this._setPiece(file, rank, "");
           file++;
         }
       }
@@ -121,17 +124,17 @@ export default class FENBoard {
       if (empty > 0) {
         fen.push(empty);
       }
-      fen.push('/');
+      fen.push("/");
     }
     fen.pop();
-    return fen.join('');
+    return fen.join("");
   }
 
-  _setPiece(file, rank, fenChar) {
+  private _setPiece(file: number, rank: number, fenChar: string) {
     this.board[rank][file] = fenChar;
   }
 
-  _getPiece(file, rank) {
+  private _getPiece(file: number, rank: number) {
     return this.board[rank][file];
   }
 }
