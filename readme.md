@@ -68,7 +68,7 @@ fenBoard.board;
 
 ### move()
 
-move a piece from a4 to a1
+move a piece from d2 to d4
 
 ```javascript test
 fenBoard = new FENBoard("start");
