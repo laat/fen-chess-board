@@ -1,9 +1,13 @@
-import { emptyBoard, getFileRank } from './chess-utils';
+import { emptyBoard, getFileRank, Piece } from "./chess-utils";
+export { isPiece } from "./chess-utils";
+
+export type BoardPiece = Piece | "";
 
 export default class FENBoard {
-  constructor(fen) {
+  board: BoardPiece[][];
+  constructor(fen?: string) {
     this.board = emptyBoard();
-    this.fen = fen;
+    this.fen = fen ?? null;
   }
 
   /**
@@ -12,7 +16,7 @@ export default class FENBoard {
    * @param {string} square - The square. Eg: "a2"
    * @return {string} piece - the ascii representation of a piece. Eg: "K"
    */
-  piece(square) {
+  piece(square: string) {
     const [file, rank] = getFileRank(square);
     return this._getPiece(file, rank);
   }
@@ -23,7 +27,7 @@ export default class FENBoard {
    * @param {string} square - The square. Eg: "a2"
    * @param {string} piece - the ascii representation of a piece. Eg: "K"
    */
-  put(square, piece) {
+  put(square: string, piece: BoardPiece) {
     const [file, rank] = getFileRank(square);
     this._setPiece(file, rank, piece);
   }
@@ -33,8 +37,8 @@ export default class FENBoard {
    *
    * @param {string} square - The square. Eg: "a2"
    */
-  clear(square) {
-    this.put(square, '');
+  clear(square: string) {
+    this.put(square, "");
   }
 
   /**
@@ -43,10 +47,10 @@ export default class FENBoard {
    * @param {string} from - The square to move from. Eg: "a2"
    * @param {string} to - The square to move to. Eg: "a3"
    */
-  move(from, to) {
+  move(from: string, to: string) {
     const piece = this.piece(from);
     if (!piece) {
-      throw new Error('Move Error: the from square was empty');
+      throw new Error("Move Error: the from square was empty");
     }
     this.put(to, piece);
     this.clear(from);
@@ -57,12 +61,14 @@ export default class FENBoard {
    *
    * @param {string} fen - a position string as FEN
    */
-  set fen(fen) {
+  set fen(fen: string | null) {
     // reset board
-    this.board.forEach((r) => { r.length = 0; }); // eslint-disable-line no-param-reassign
+    this.board.forEach(r => {
+      r.length = 0;
+    }); // eslint-disable-line no-param-reassign
 
     if (!fen) return;
-    if (fen === 'start') fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'; // eslint-disable-line
+    if (fen === "start") fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"; // eslint-disable-line
 
     let rank = 0;
     let file = 0;
@@ -74,10 +80,10 @@ export default class FENBoard {
     while (fenIndex < fen.length) {
       fenChar = fen[fenIndex];
 
-      if (fenChar === ' ') {
+      if (fenChar === " ") {
         break; // ignore the rest
       }
-      if (fenChar === '/') {
+      if (fenChar === "/") {
         rank++;
         file = 0;
         fenIndex++;
@@ -85,12 +91,12 @@ export default class FENBoard {
       }
 
       if (isNaN(parseInt(fenChar, 10))) {
-        this._setPiece(file, rank, fenChar);
+        this._setPiece(file, rank, fenChar as Piece);
         file++;
       } else {
         count = parseInt(fenChar, 10);
         for (let i = 0; i < count; i++) {
-          this._setPiece(file, rank, '');
+          this._setPiece(file, rank, "");
           file++;
         }
       }
@@ -121,17 +127,17 @@ export default class FENBoard {
       if (empty > 0) {
         fen.push(empty);
       }
-      fen.push('/');
+      fen.push("/");
     }
     fen.pop();
-    return fen.join('');
+    return fen.join("");
   }
 
-  _setPiece(file, rank, fenChar) {
+  _setPiece(file: number, rank: number, fenChar: BoardPiece) {
     this.board[rank][file] = fenChar;
   }
 
-  _getPiece(file, rank) {
+  _getPiece(file: number, rank: number) {
     return this.board[rank][file];
   }
 }
