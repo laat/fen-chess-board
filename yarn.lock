@@ -11,13 +11,13 @@
     "@jridgewell/trace-mapping" "^0.3.9"
 
 "@babel/cli@^7.6.2":
-  version "7.22.15"
-  resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.22.15.tgz#22ed82d76745a43caa60a89917bedb7c9b5bd145"
-  integrity sha512-prtg5f6zCERIaECeTZzd2fMtVjlfjhUcO+fBLQ6DXXdq5FljN+excVitJ2nogsusdf31LeqkjAfXZ7Xq+HmN8g==
+  version "7.23.0"
+  resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.23.0.tgz#1d7f37c44d4117c67df46749e0c86e11a58cc64b"
+  integrity sha512-17E1oSkGk2IwNILM4jtfAvgjt+ohmpfBky8aLerUfYZhiPNg7ca+CRCxZn8QDxwNhV/upsc2VHBCqGFIR+iBfA==
   dependencies:
     "@jridgewell/trace-mapping" "^0.3.17"
     commander "^4.0.1"
-    convert-source-map "^1.1.0"
+    convert-source-map "^2.0.0"
     fs-readdir-recursive "^1.1.0"
     glob "^7.2.0"
     make-dir "^2.1.0"
@@ -1320,13 +1320,6 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
-convert-source-map@^1.1.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.7.0.tgz#17a2cb882d7f77d3490585e2ce6c524424a3a442"
-  integrity sha512-4FJkXzKXEDB1snCFZlLP4gpC3JILicCpGbzG9f9G7tGqGCzETQ2hWPrcinA9oU4wtf2biUaEH5065UnMeR33oA==
-  dependencies:
-    safe-buffer "~5.1.1"
-
 convert-source-map@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-2.0.0.tgz#4b560f649fc4e918dd0ab75cf4961e8bc882d82a"
@@ -2307,11 +2300,6 @@ safe-array-concat@^1.0.1:
     get-intrinsic "^1.2.1"
     has-symbols "^1.0.3"
     isarray "^2.0.5"
-
-safe-buffer@~5.1.1:
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
-  integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
 
 safe-regex-test@^1.0.0:
   version "1.0.0"
