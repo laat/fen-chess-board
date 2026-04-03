@@ -7,7 +7,7 @@
   "main": "./src/fen-chess-board.js",
   "types": "./src/fen-chess-board.d.ts",
   "scripts": {
-    "test": "node --test src/fen-chess-board.test.js"
+    "test": "node --test src/fen-chess-board.test.js && readme-assert"
   },
   "repository": {
     "type": "git",
@@ -31,5 +31,8 @@
   ],
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "readme-assert": "^7.0.0"
   }
 }

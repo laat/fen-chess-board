@@ -10,7 +10,8 @@ Module for keeping track of chess boards in [Forsyth–Edwards Notation](https:/
 ```javascript test
 import FENBoard from "fen-chess-board";
 
-let fenBoard = new FENBoard("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+const fenBoard = new FENBoard("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+
 fenBoard.board;
 /*=>
 [ [ 'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r' ],
@@ -29,9 +30,11 @@ fenBoard.board;
 Put the white queen on the a4 square
 
 ```javascript test
-fenBoard = new FENBoard();
-fenBoard.put("a4", "Q");
+import FENBoard from "fen-chess-board";
 
+const fenBoard = new FENBoard();
+
+fenBoard.put("a4", "Q");
 fenBoard.board;
 /*=>
 [ [],
@@ -48,9 +51,11 @@ fenBoard.board;
 set a4 square empty
 
 ```javascript test
-fenBoard = new FENBoard("start");
-fenBoard.put("a1", "");
+import FENBoard from "fen-chess-board";
 
+const fenBoard = new FENBoard("start");
+
+fenBoard.put("a1", "");
 fenBoard.board;
 /*=>
 [ [ 'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r' ],
@@ -69,9 +74,11 @@ fenBoard.board;
 move a piece from d2 to d4
 
 ```javascript test
-fenBoard = new FENBoard("start");
-fenBoard.move("d2", "d4");
+import FENBoard from "fen-chess-board";
 
+const fenBoard = new FENBoard("start");
+
+fenBoard.move("d2", "d4");
 fenBoard.board;
 /*=>
 [ [ 'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r' ],
@@ -88,10 +95,12 @@ fenBoard.board;
 ### setting board position
 
 ```javascript test
-const scolarsMate = "r1bqk1nr/pppp1Qpp/2n5/2b1p3/2B1P3/8/PPPP1PPP/RNB1K1NR";
-fenBoard = new FENBoard();
-fenBoard.fen = scolarsMate;
+import FENBoard from "fen-chess-board";
 
+const scolarsMate = "r1bqk1nr/pppp1Qpp/2n5/2b1p3/2B1P3/8/PPPP1PPP/RNB1K1NR";
+const fenBoard = new FENBoard();
+
+fenBoard.fen = scolarsMate;
 fenBoard.board;
 /*=>
 [ [ 'r',  '', 'b', 'q', 'k', '' , 'n', 'r' ],
@@ -108,7 +117,9 @@ fenBoard.board;
 ### simple start position
 
 ```javascript test
-fenBoard = new FENBoard("start");
+import FENBoard from "fen-chess-board";
+
+const fenBoard = new FENBoard("start");
 fenBoard.board;
 /*=>
 [ [ 'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r' ],
@@ -125,7 +136,12 @@ fenBoard.board;
 ### getting board position
 
 ```javascript test
-fenBoard = new FENBoard();
+import FENBoard from "fen-chess-board";
+
+const scolarsMate = "r1bqk1nr/pppp1Qpp/2n5/2b1p3/2B1P3/8/PPPP1PPP/RNB1K1NR";
+
+const fenBoard = new FENBoard();
+
 fenBoard.fen = scolarsMate;
 scolarsMate === fenBoard.fen;
 //=> true
