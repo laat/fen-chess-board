@@ -2,11 +2,12 @@
   "name": "fen-chess-board",
   "version": "2.0.5",
   "description": "Module for keeping track of chess boards in Forsyth–Edwards Notation.",
-  "main": "lib/fen-chess-board.js",
+  "type": "module",
+  "exports": "./src/fen-chess-board.js",
+  "main": "./src/fen-chess-board.js",
+  "types": "./src/fen-chess-board.d.ts",
   "scripts": {
-    "build": "babel --ignore '*test.js' src/. -d lib/.",
-    "test": "tape -r @babel/register 'src/**/*.test.js'",
-    "prepublish": "npm run build"
+    "test": "node --test src/fen-chess-board.test.js"
   },
   "repository": {
     "type": "git",
@@ -18,20 +19,17 @@
     "url": "https://github.com/laat/fen-chess-board/issues"
   },
   "homepage": "https://github.com/laat/fen-chess-board#readme",
-  "devDependencies": {
-    "@babel/cli": "^7.6.2",
-    "@babel/core": "^7.6.2",
-    "@babel/preset-env": "^7.6.2",
-    "@babel/register": "^7.6.2",
-    "tape": "^5.0.0"
-  },
   "keywords": [
-    "es6",
     "chess",
     "fen",
     "Forsyth-Edwards Notation"
   ],
   "files": [
-    "lib"
-  ]
+    "src/fen-chess-board.js",
+    "src/fen-chess-board.d.ts",
+    "src/chess-utils.js"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
 }

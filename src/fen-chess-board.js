@@ -1,4 +1,4 @@
-import { emptyBoard, getFileRank } from './chess-utils';
+import { emptyBoard, getFileRank } from './chess-utils.js';
 
 export default class FENBoard {
   constructor(fen) {
@@ -132,6 +132,6 @@ export default class FENBoard {
   }
 
   _getPiece(file, rank) {
-    return this.board[rank][file];
+    return this.board[rank][file] ?? '';
   }
 }
