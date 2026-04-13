@@ -33,6 +33,6 @@
     "node": ">=18"
   },
   "devDependencies": {
-    "readme-assert": "^7.0.0"
+    "readme-assert": "^8.0.0"
   }
 }
