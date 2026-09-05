@@ -17,13 +17,19 @@ on:
   release:
     types: [published]
 
-permissions:
-  contents: read
-  id-token: write # required to mint the OIDC token for npm
+permissions: {}
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   publish:
+    name: Stage on npm
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # required to mint the OIDC token for npm
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

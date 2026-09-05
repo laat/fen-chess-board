@@ -5,12 +5,18 @@ on:
     branches: [master]
   pull_request:
 
-permissions:
-  contents: read
+permissions: {}
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
+    name: Test on Node.js ${{ matrix.node-version }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     strategy:
       matrix:
@@ -27,3 +33,16 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: npm test
+
+  audit-workflows:
+    name: Audit workflows with zizmor
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: pipx run zizmor==1.30.0 .github/workflows/
+        env:
+          GH_TOKEN: ${{ github.token }}
