@@ -1,6 +1,6 @@
 {
   "name": "fen-chess-board",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Module for keeping track of chess boards in Forsyth–Edwards Notation.",
   "keywords": [
     "chess",
