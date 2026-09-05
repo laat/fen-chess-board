@@ -1,38 +1,46 @@
 {
   "name": "fen-chess-board",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Module for keeping track of chess boards in Forsyth–Edwards Notation.",
-  "type": "module",
-  "exports": "./src/fen-chess-board.js",
-  "main": "./src/fen-chess-board.js",
-  "types": "./src/fen-chess-board.d.ts",
-  "scripts": {
-    "test": "node --test src/fen-chess-board.test.js && readme-assert"
+  "keywords": [
+    "chess",
+    "fen",
+    "Forsyth-Edwards Notation",
+    "board"
+  ],
+  "homepage": "https://github.com/laat/fen-chess-board#readme",
+  "bugs": {
+    "url": "https://github.com/laat/fen-chess-board/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/laat/fen-chess-board.git"
   },
-  "author": "Sigurd Fosseng <sigurd@fosseng.net>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/laat/fen-chess-board/issues"
+  "author": "Sigurd Fosseng <sigurd@fosseng.net>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/fen-chess-board.d.ts",
+      "default": "./src/fen-chess-board.js"
+    },
+    "./package.json": "./package.json"
   },
-  "homepage": "https://github.com/laat/fen-chess-board#readme",
-  "keywords": [
-    "chess",
-    "fen",
-    "Forsyth-Edwards Notation"
-  ],
+  "main": "./src/fen-chess-board.js",
+  "types": "./src/fen-chess-board.d.ts",
+  "sideEffects": false,
   "files": [
     "src/fen-chess-board.js",
     "src/fen-chess-board.d.ts",
     "src/chess-utils.js"
   ],
-  "engines": {
-    "node": ">=18"
+  "scripts": {
+    "test": "node --test && readme-assert"
   },
   "devDependencies": {
     "readme-assert": "^10.1.2"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

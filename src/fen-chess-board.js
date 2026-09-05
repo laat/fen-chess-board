@@ -1,8 +1,21 @@
-import { emptyBoard, getFileRank } from './chess-utils.js';
+import { assertPiece, emptyBoard, getFileRank } from './chess-utils.js';
+
+const START_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
 
 export default class FENBoard {
+  /**
+   * The board as an 8x8 array of piece characters, `''` for empty squares.
+   * Row 0 is rank 8 and column 0 is the a-file, so `board[7][0]` is a1.
+   *
+   * @type {string[][]}
+   */
+  board = emptyBoard();
+
+  /**
+   * @param {string} [fen] - a FEN position, or "start" for the starting
+   *   position. Omit for an empty board.
+   */
   constructor(fen) {
-    this.board = emptyBoard();
     this.fen = fen;
   }
 
@@ -14,7 +27,7 @@ export default class FENBoard {
    */
   piece(square) {
     const [file, rank] = getFileRank(square);
-    return this._getPiece(file, rank);
+    return this.board[rank][file];
   }
 
   /**
@@ -25,7 +38,8 @@ export default class FENBoard {
    */
   put(square, piece) {
     const [file, rank] = getFileRank(square);
-    this._setPiece(file, rank, piece);
+    assertPiece(piece);
+    this.board[rank][file] = piece;
   }
 
   /**
@@ -49,89 +63,75 @@ export default class FENBoard {
       throw new Error('Move Error: the from square was empty');
     }
     this.put(to, piece);
-    this.clear(from);
+    if (from !== to) {
+      this.clear(from);
+    }
   }
 
   /**
    * Set the current position.
    *
+   * Only the piece placement field is used; anything after the first
+   * space (active color, castling, ...) is ignored.
+   *
    * @param {string} fen - a position string as FEN
+   * @throws {Error} if the piece placement is malformed; the board is
+   *   left unchanged in that case
    */
   set fen(fen) {
-    // reset board
-    this.board.forEach((r) => { r.length = 0; }); // eslint-disable-line no-param-reassign
+    const board = emptyBoard();
 
-    if (!fen) return;
-    if (fen === 'start') fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'; // eslint-disable-line
-
-    let rank = 0;
-    let file = 0;
-    let fenIndex = 0;
-
-    let fenChar;
-    let count;
-
-    while (fenIndex < fen.length) {
-      fenChar = fen[fenIndex];
-
-      if (fenChar === ' ') {
-        break; // ignore the rest
-      }
-      if (fenChar === '/') {
-        rank++;
-        file = 0;
-        fenIndex++;
-        continue;
+    if (fen === 'start') fen = START_FEN;
+    if (fen) {
+      const placement = String(fen).split(' ', 1)[0];
+      const ranks = placement.split('/');
+      if (ranks.length > 8) {
+        throw new Error(`Invalid FEN: expected at most 8 ranks, got ${ranks.length}`);
       }
 
-      if (isNaN(parseInt(fenChar, 10))) {
-        this._setPiece(file, rank, fenChar);
-        file++;
-      } else {
-        count = parseInt(fenChar, 10);
-        for (let i = 0; i < count; i++) {
-          this._setPiece(file, rank, '');
-          file++;
+      ranks.forEach((rankString, rank) => {
+        let file = 0;
+        for (const char of rankString) {
+          if (char >= '1' && char <= '8') {
+            file += Number(char);
+          } else if (char === '0' || char === '9') {
+            throw new Error(`Invalid FEN: unexpected "${char}" in rank ${8 - rank}`);
+          } else {
+            if (file < 8) board[rank][file] = char;
+            file++;
+          }
         }
-      }
-
-      fenIndex++;
+        if (file > 8) {
+          throw new Error(`Invalid FEN: rank ${8 - rank} has more than 8 squares`);
+        }
+      });
     }
+
+    // Copy into the existing rows so `board` keeps its identity.
+    this.board.forEach((row, rank) => row.splice(0, 8, ...board[rank]));
   }
 
   /**
    * Get the current position as FEN.
+   *
+   * @return {string}
    */
   get fen() {
-    const fen = [];
-    for (let i = 0; i < 8; i++) {
-      let empty = 0;
-      for (let j = 0; j < 8; j++) {
-        const piece = this._getPiece(j, i);
-        if (piece) {
-          if (empty > 0) {
-            fen.push(empty);
+    return this.board
+      .map((row) => {
+        let out = '';
+        let empty = 0;
+        for (const piece of row) {
+          if (piece) {
+            if (empty) out += empty;
             empty = 0;
+            out += piece;
+          } else {
+            empty++;
           }
-          fen.push(piece);
-        } else {
-          empty++;
         }
-      }
-      if (empty > 0) {
-        fen.push(empty);
-      }
-      fen.push('/');
-    }
-    fen.pop();
-    return fen.join('');
-  }
-
-  _setPiece(file, rank, fenChar) {
-    this.board[rank][file] = fenChar;
-  }
-
-  _getPiece(file, rank) {
-    return this.board[rank][file] ?? '';
+        return empty ? out + empty : out;
+      })
+      .join('/');
   }
 }
