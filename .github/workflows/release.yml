@@ -1,0 +1,40 @@
+# Publishes to npm when a GitHub release is published.
+#
+# Authentication uses npm trusted publishing (OIDC), so no npm token is
+# stored in the repository. The trusted publisher must be configured on
+# npmjs.com for this package with:
+#   repository: laat/fen-chess-board
+#   workflow:   release.yml
+#
+# To release: bump "version" in package.json, push to master, then create a
+# GitHub release whose tag is "v" followed by that version (e.g. v4.0.0).
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write # required to mint the OIDC token for npm
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24 # bundled npm supports trusted publishing
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - name: Check that the release tag matches package.json
+        run: |
+          version="$(node -p 'require("./package.json").version')"
+          if [ "${GITHUB_REF_NAME}" != "v${version}" ]; then
+            echo "Release tag ${GITHUB_REF_NAME} does not match package.json version v${version}" >&2
+            exit 1
+          fi
+      - run: npm ci
+      - run: npm test
+      - run: npm publish --provenance --access public
