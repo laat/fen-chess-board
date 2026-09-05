@@ -1,0 +1,38 @@
+# Auto-merges Dependabot PRs for patch and minor updates once required
+# status checks pass. Major updates are left for manual review.
+#
+# Relies on repository settings configured via the GitHub API/UI, not in
+# this file:
+#   - "Allow auto-merge" enabled on the repository
+#   - Branch protection on master requiring the "Test on Node.js *" and
+#     zizmor checks, so auto-merge waits for CI instead of merging
+#     immediately
+#   - The Actions allowlist permitting dependabot/fetch-metadata
+name: Dependabot auto-merge
+
+on: pull_request
+
+permissions: {}
+
+concurrency:
+  group: automerge-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  automerge:
+    name: Enable auto-merge on Dependabot PRs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # gh pr merge --auto flags the PR for merging
+      pull-requests: write # gh pr merge needs to update the PR
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'laat/fen-chess-board'
+    steps:
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3.1.0
+      - name: Enable auto-merge for patch and minor updates
+        if: contains(fromJSON('["version-update:semver-patch", "version-update:semver-minor"]'), steps.metadata.outputs.update-type)
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
