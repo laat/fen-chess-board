@@ -180,6 +180,16 @@ tests in `src/`.
 npm test
 ```
 
+### Releasing
+
+Bump `version` in `package.json`, push to `master`, then publish a GitHub
+release with the tag `v<version>` (for example `v4.0.0`). The release
+workflow runs the tests and stages the version on npm with provenance via
+[trusted publishing](https://docs.npmjs.com/trusted-publishers), so no npm
+token is needed. Approve the staged version with 2FA under **Staged
+Packages** on npmjs.com, or with `npm stage approve <stage-id>`, to make it
+live.
+
 ## License
 
 MIT © [Sigurd Fosseng](https://github.com/laat)
