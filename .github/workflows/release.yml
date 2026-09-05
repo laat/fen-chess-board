@@ -1,13 +1,16 @@
-# Publishes to npm when a GitHub release is published.
+# Stages a release on npm when a GitHub release is published.
 #
 # Authentication uses npm trusted publishing (OIDC), so no npm token is
 # stored in the repository. The trusted publisher must be configured on
 # npmjs.com for this package with:
 #   repository: laat/fen-chess-board
 #   workflow:   release.yml
+#   direct publishing: not allowed (stage only)
 #
 # To release: bump "version" in package.json, push to master, then create a
 # GitHub release whose tag is "v" followed by that version (e.g. v4.0.0).
+# This workflow stages the version; approve it with 2FA under "Staged
+# Packages" on npmjs.com (or `npm stage approve <stage-id>`) to make it live.
 name: Release
 
 on:
@@ -37,4 +40,4 @@ jobs:
           fi
       - run: npm ci
       - run: npm test
-      - run: npm publish --provenance --access public
+      - run: npm stage publish --provenance --access public
