@@ -38,7 +38,7 @@
     "test": "node --test && readme-assert"
   },
   "devDependencies": {
-    "readme-assert": "^10.1.2"
+    "readme-assert": "^10.1.0"
   },
   "engines": {
     "node": ">=22"

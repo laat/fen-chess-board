@@ -1,3 +1,5 @@
+# Patch and minor update PRs are auto-merged once CI passes, see
+# .github/workflows/dependabot-automerge.yml. Major updates need review.
 version: 2
 updates:
   - package-ecosystem: npm
